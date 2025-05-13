@@ -1,12 +1,7 @@
-# ── core ─────────────────────────────────────────
-streamlit==1.45.1      # UI framework you developed with
+streamlit==1.45.1
 pandas==2.0.3
-numpy==1.26.4
-plotly==5.17.0
-
-# ── model / API ──────────────────────────────────
-openai==1.78.0         # your sentiment calls
-tenacity==8.5.0        # retry wrapper used with openai
-
-# ── imaging ──────────────────────────────────────
-pillow==9.5.0          # provides `PIL`, `Image`, `ImageDraw`
+numpy>=1.26            # 1.26+ has wheels for Python 3.12
+plotly==5.17.0         # ← MUST be here
+openai==1.78.0
+tenacity==8.5.0
+pillow==9.5.0
