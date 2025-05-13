@@ -1,7 +1,7 @@
 streamlit==1.45.1
 pandas==2.0.3
-numpy>=1.26            # 1.26+ has wheels for Python 3.12
-plotly==5.17.0         # ← MUST be here
+numpy>=1.26            
+plotly==5.17.0        
 openai==1.78.0
 tenacity==8.5.0
 pillow==9.5.0
