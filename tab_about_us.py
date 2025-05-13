@@ -16,7 +16,7 @@ ASSETS_DIR.mkdir(exist_ok=True)
 PHOTO_MAP = {
     "Dylan Gordon":       "dylan.png",
     "Dominick Kubica":    "dominick.png",
-    "Nanami Emura":       "nanmi.jpg",
+    "Nanami Emura":       "nanami.jpg",
     "Derleen Saini":      "derleen.jpg",
     "Charles Goldenberg": "charles.png",
 }
