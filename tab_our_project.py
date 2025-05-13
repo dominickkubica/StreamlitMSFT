@@ -16,9 +16,11 @@ def render_our_project_tab(microsoft_colors):
             sections = [
                 "Executive Summary", 
                 "Problem Statement", 
-                "Methodology", 
+                "Benchmarking", 
+                "Real World Testing",
                 "Results & Findings",
-                "References"
+                "Publications"
+                
             ]
             
             # Make this a session state to track which section is active
@@ -53,10 +55,12 @@ def render_our_project_tab(microsoft_colors):
                 4. Visualize the results for intuitive understanding
                 
                 Our analysis provides unique insights into important market sectors that may drive stock movement. Although markets
-                are tumultuous and unpredictable, our process highlights individual business lines that may be impacting inverstor sentiment
+                are tumultuous and unpredictable, our process highlights individual business lines that may be impacting investor sentiment
                 with greater impact than others. We hope this tool can provide Microsoft with more information to better navigate the delicate 
                 process of presenting quarterly earnings.
                 """)
+                st.markdown("</div>", unsafe_allow_html=True)
+
                 
             elif st.session_state.active_section == "Problem Statement":
                 st.markdown("## Problem Statement")
@@ -75,63 +79,91 @@ def render_our_project_tab(microsoft_colors):
                 pair it with a relevant stock ticker, and receive targeted sentiment insights across business segments—highlighting which areas 
                 may have driven investor reaction.
                 """)
+                st.markdown("</div>", unsafe_allow_html=True)
+
                 
-            elif st.session_state.active_section == "Methodology":
-                st.markdown("## Methodology")
-                st.markdown("""
-                Our approach combines several technical components:
-                
-                1. **Data Collection**: For the research we used the publicly available quarterly transcripts from Microsoft.
-                for the tool we allow users to drag and drop their own desired transcripts from different companies. We used the 
-                Financial Phrasebank data set from Kaggle for benchmarking purposes created by Aalto University. 
-                
-                2. **Preprocessing**: We used NLTK and SpaCy for tokenization, stop-word removal, and lemmatization for the python
-                library models. Unlike traditional models, LLMs do not require this preprocessing step, as they utilize contextual cues
-                from connecting words to enhance understanding
-                            
-                3. **Sentiment Analysis**: We used many models including: Fin-BERT, NLTK - Vader, Textblob, Copilot, Chat-Gpt -4o with and 
-                without prompt engineering, and Gemini 2.0 Flash with prompt engineering. 
-                            
-                4. **Statistical methods**: We used Accuracy and Lift for benchmarking measurements. Accuracy is defined as the percent correctly identified 
-                by the model for all sentiments, when compared to the labeled data. Lift is defined as the amount of sentences labeled correctly by category based on the
-                prevelance of that category in the datset. Additionally, we used Pearson Correlation to connect the impact of business line sentiment to stocks, to quantify the 
-                impact of each category on investor setniment.
-                            
-                5. **Visualization**: We used Matplotlib for the data visualization. We included a Beeswarm plot, various bar charts, and a bar and whiskers plot to show our various findings.
-                """)
-            
-                
+            elif st.session_state.active_section == "Benchmarking":
+                st.markdown("## Benchmarking")
+
+                # two‑column layout: text on the left, figure on the right
+                text_col, fig_col = st.columns([2, 3])
+
+                with text_col:
+                    st.markdown("""
+                    Before diving into the Microsoft transcripts, we first benchmarked a variety of models  
+                    on the Financial Phrasebank dataset (Aalto University) to gauge baseline performance.
+
+                    **Our approach combines several components:**
+
+                    1. **Data Collection**: Financial Phrasebank from Kaggle, with 3‑label sentiment (Positive, Negative, Neutral).  
+                    2. **Preprocessing**: NLTK & SpaCy for traditional models; skipped for LLMs.  
+                    3. **Sentiment Analysis**: Fin‑BERT, Vader (NLTK), TextBlob, Copilot 365, Copilot Chat & App, ChatGPT‑4o (± prompts), and Gemini 2.0 Flash.  
+                    4. **Metrics**: Accuracy, Lift, plus Pearson correlation for business‑line sentiment vs. stock returns.
+                    """)
+
+                st.markdown("</div>", unsafe_allow_html=True)
+
+
+            elif st.session_state.active_section == "Real World Testing":
+                st.markdown("## Real World Testing")
+
+                # two‐column layout for text
+                text_col, img_col = st.columns([2, 3])
+
+                with text_col:
+                    st.markdown("**Key Findings**")
+                    st.write("""
+                    - **Segmented sentiment drives insight** – Business‐line sentiment (e.g. Devices, Search & Advertising) often correlates more closely to next‐day stock moves than overall tone.
+                    - **Inverse signals** – Positive spikes in “Search & News Advertising” preceded sell‐offs, suggesting over‑optimism can trigger defensive selling.
+                    - **Model choice matters** – ChatGPT‑4o handled batch transcript processing more cleanly than Copilot for large‐scale analysis.
+                    """)
+
+                    st.markdown("**Optimization Recommendations**")
+                    st.write("""
+                    1. **Automate segmentation** – Build an LLM‑powered pipeline that tags transcripts by business unit before sentiment extraction.  
+                    2. **Overlay price data** – Pull stock price changes via an API (e.g. yfinance) and dynamically plot movements next to sentiment.
+                    3. **Interactive visuals** – Use Streamlit’s Plotly or Altair integration to let users toggle segments and date ranges.
+                    """)
+
+                st.markdown("</div>", unsafe_allow_html=True)
+
+
             elif st.session_state.active_section == "Results & Findings":
                 st.markdown("## Results & Findings")
                 st.markdown("""
-                Key findings from our research:
                 
-                1. Overall prediction accuracy drastically changes by model. LLM's dominate with a high of 78% accuracy for chat-GPT-4o
-                2. Copilot defers to textblob in the Microsoft 365 Version, potentially showing a token ceiling for this type of NLP analysis
-                """)
+                **Key Findings**
+                - LLMs outpace traditional NLP: ChatGPT‑4o and Copilot App excel in accuracy and nuance. This is the future of Financial Sentiment Analysis
+                - Copilot 365 offloads to TextBlob—limit exposed by reduced performance
+
+                **Copilot Optimization Recommendations**
+                1. **Transparency**: Notify users when analysis falls back to simpler libraries
+                2. **API Access**: Enable enterprise-tier LLM API for Copilot App for batch workflows
+                3. **Performance**: Expose token limits and allow prompt tailoring in Copilot 365
+                """
+                )
                 
-            # References section with actual content
-            elif st.session_state.active_section == "References":
-                st.markdown("## References")
-                st.markdown("""
-                1. Smith, J. et al. (2024). "Financial Sentiment Analysis using Transformer Models." Journal of Financial Data Science, 6(2), 45-67.
-                
-                2. Johnson, A. & Chen, S. (2023). "Predicting Market Movements from Earnings Calls." Microsoft Research Technical Report, MR-2023-05.
-                
-                3. Rodriguez, M. (2024). "FinBERT: A Pre-trained Financial Language Representation Model." Proceedings of the 2024 Conference on Financial NLP, 78-92.
-                
-                4. Patel, P. & Kim, D. (2025). "Visualizing Sentiment-Price Correlations in Financial Markets." IEEE Visualization Conference.
-                
-                5. Financial Modeling Prep API. (2025). Retrieved from [https://financialmodelingprep.com/api/](https://financialmodelingprep.com/api/)
-                """)
-                
-                # Add a link to more references
-                st.markdown(f"""
-                <div style="margin-top: 20px;">
-                <a href="#" style="color: {microsoft_colors['primary']}; text-decoration: none;">
-                    <i>View all references in our research paper →</i>
-                </a>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown("</div>", unsafe_allow_html=True)
+    
             
-            st.markdown("</div>", unsafe_allow_html=True)
+            elif st.session_state.active_section == "Publications":
+                st.markdown("## Publications")
+
+                text_col, link_col = st.columns([3, 1])
+
+                with text_col:
+                    st.markdown("""
+                    We’ve been actively sharing our findings through a variety of channels:
+
+                    1. **Microsoft Internal Report** (April 2025)  
+                    – Detailed technical write‑up of Copilot 365 vs. LLM benchmarking, circulated within Microsoft Research.
+
+                    2. **Microsoft AI Blog Submission** (May 2025)  
+                    – Draft blog post titled *“Benchmarking Copilot & ChatGPT‑4o for Financial Sentiment Analysis”* under review by the Microsoft AI content team.
+
+                    3. **MIT Technology Review Manuscript** (Under Review)  
+                    – Paper **“Can AI Read Between the Lines? Benchmarking LLMs on Financial Transcripts”** submitted for external publication.
+                    """)
+                st.markdown("</div>", unsafe_allow_html=True)
+
+    
