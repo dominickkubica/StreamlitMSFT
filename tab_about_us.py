@@ -14,11 +14,11 @@ ASSETS_DIR = BASE_DIR / "assets"
 ASSETS_DIR.mkdir(exist_ok=True)
 
 PHOTO_MAP = {
-    "Dylan Gordon":       "DYLAN.png",
-    "Dominick Kubica":    "DOMINICK.png",
-    "Nanami Emura":       "NANAMI.png",
-    "Derleen Saini":      "DERLEEN.png",
-    "Charles Goldenberg": "CHARLES.png",
+    "Dylan Gordon":       "dylan.png",
+    "Dominick Kubica":    "dominick.png",
+    "Nanami Emura":       "nanmi.jpg",
+    "Derleen Saini":      "derleen.jpg",
+    "Charles Goldenberg": "charles.png",
 }
 
 def get_image_as_base64(file_path):
