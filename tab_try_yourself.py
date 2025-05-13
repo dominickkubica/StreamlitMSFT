@@ -13,6 +13,7 @@ import json
 import openai
 import os
 import re
+from pathlib import Path      
 from tenacity import stop_after_attempt
 from tenacity import wait_exponential
 from tenacity import retry
@@ -29,9 +30,13 @@ MSFT_EARNINGS_DATES = [
     "2025-01-29", "2025-04-30"
 ]
 
-# Hardcoded file paths
-STOCK_DATA_PATH = "C:\\Users\\kubic\\OneDrive\\Desktop\\MSFTSTREAMLIT\\HistoricalData_1747025804532.csv"
-SENTIMENT_DATA_PATH = "C:\\Users\\kubic\\OneDrive\\Desktop\\MSFTSTREAMLIT\\MSFTQ2_preload.csv.csv"
+# -------- repo-relative file paths --------
+BASE_DIR  = Path(__file__).resolve().parent   # .../MSFTSTREAMLIT
+DATA_DIR  = BASE_DIR / "data"
+
+STOCK_DATA_PATH     = DATA_DIR / "HistoricalData.csv"
+SENTIMENT_DATA_PATH = DATA_DIR / "MSFTQ2_preload.csv"
+
 
 # -------------------------------------------------------------------------------
 # Stock data related functions
